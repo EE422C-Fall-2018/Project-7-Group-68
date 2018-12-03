@@ -2,6 +2,12 @@ package assignment7;
 
 
 
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,36 +50,40 @@ public class Login extends Application {
 		TextField userTextField = new TextField();
 		grid.add(userTextField, 1, 1);
 
-		Label pw = new Label("Password:");
-		grid.add(pw, 0, 2);
-
-		PasswordField pwBox = new PasswordField();
-		grid.add(pwBox, 1, 2);
+		
 		
 		Label ser = new Label("Server Port:");
-		grid.add(ser, 0, 3);
+		grid.add(ser, 0, 2);
 		
 		TextField serverTextField = new TextField();
-		grid.add(serverTextField, 1, 3);
+		grid.add(serverTextField, 1, 2);
 		
 		Button btn = new Button("Sign in");
 		HBox hbBtn = new HBox(10);
 		hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn.getChildren().add(btn);
-		grid.add(hbBtn, 1, 4);
+		grid.add(hbBtn, 1, 3);
 		
 		Label kljal = new Label("Server Port:");
-		grid.add(kljal, 0, 5);
+		grid.add(kljal, 0, 4);
 		
 		TextField server2TextField = new TextField();
-		grid.add(server2TextField, 1, 5);
+		grid.add(server2TextField, 1, 4);
 		
 		Button btn2 = new Button("Make Server");
 		HBox hbBtn2 = new HBox(10);
 		hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
 		hbBtn2.getChildren().add(btn2);
-		grid.add(hbBtn2, 1, 6);
-		
+		grid.add(hbBtn2, 1, 5);
+		try {
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/assignment7/Computer_Magic-Microsift-1901299923.wav").getAbsoluteFile());
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
 		final Text actiontarget = new Text();
 		btn.setOnAction((EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
 			 
@@ -95,6 +105,15 @@ public class Login extends Application {
 		    @Override
 		    public void handle(ActionEvent e) {
 		        serverport = Integer.parseInt(server2TextField.getText());
+		        try {
+			        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/assignment7/ie_Short_Cow_MooDTMF_Tones-KevanGC-494166652.wav").getAbsoluteFile());
+			        Clip clip = AudioSystem.getClip();
+			        clip.open(audioInputStream);
+			        clip.start();
+			    } catch(Exception ex) {
+			        System.out.println("Error with playing sound.");
+			        ex.printStackTrace();
+			    }
 		        primaryStage.hide();	        
 		        ChatServer.main(null);
 		    }

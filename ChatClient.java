@@ -2,6 +2,10 @@ package assignment7;
 
 import java.io.*;
 import java.net.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 import javafx.application.Application;
@@ -28,6 +32,7 @@ public class ChatClient {
 	private void initView() {
 		JFrame frame = new JFrame(Login.user);
 		JPanel mainPanel = new JPanel();
+		//mainPanel.getRootPane().setBackground(Color.green);
 		incoming = new JTextArea(15, 50);
 		incoming.setLineWrap(true);
 		incoming.setWrapStyleWord(true);
@@ -60,7 +65,7 @@ public class ChatClient {
 
 	private void setUpNetworking(int i) throws Exception {
 		@SuppressWarnings("resource")
-		Socket sock = new Socket("127.0.0.1", i);
+		Socket sock = new Socket("10.145.203.18", i);
 		InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
 		reader = new BufferedReader(streamReader);
 		writer = new PrintWriter(sock.getOutputStream());
@@ -74,6 +79,15 @@ public class ChatClient {
 
 	class SendButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent ev) {
+			try {
+		        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/assignment7/Toggle-SoundBible.com-231290292.wav").getAbsoluteFile());
+		        Clip clip = AudioSystem.getClip();
+		        clip.open(audioInputStream);
+		        clip.start();
+		    } catch(Exception ex) {
+		        System.out.println("Error with playing sound.");
+		        ex.printStackTrace();
+		    }
 			writer.println(Login.user + ": " + outgoing.getText());
 			writer.flush();
 			outgoing.setText("");
