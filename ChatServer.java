@@ -16,9 +16,9 @@ public class ChatServer {
 
 	public static void main(String[] args) {
 		try {
-			
+
 			new ChatServer().setUpNetworking(Login.serverport);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,7 +36,7 @@ public class ChatServer {
 			Thread t = new Thread(new ClientHandler(clientSocket));
 			t.start();
 			System.out.println("got a connection");
-			
+
 		}
 
 	}
